@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ListaAlunos</string>
+    <string name="title_activity_teste">TesteActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_tabled">TabledActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
