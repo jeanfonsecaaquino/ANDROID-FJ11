@@ -5,4 +5,10 @@
     <string name="title_activity_tabled">TabledActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="menuListaAlunoEditar">Editar</string>
+    <string name="menuListaAlunoDeletar">Deletar</string>
+    <string name="menuListaAlunoSite">Visitar Site do Aluno</string>
+    <string name="menuListaAlunoLigar">Ligar para aluno</string>
+    <string name="menuListaAlunoSms">Mandar SMS</string>
+    <string name="menuListaAlunoMapa">Achar no Mapa</string>
 </resources>

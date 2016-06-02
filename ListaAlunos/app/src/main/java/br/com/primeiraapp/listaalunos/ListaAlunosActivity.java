@@ -1,9 +1,11 @@
 package br.com.primeiraapp.listaalunos;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,13 +47,27 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
-        MenuItem deletar = menu.add("Deletar");
-        MenuItem editar = menu.add("Editar");
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+
+        MenuItem deletar = menu.add(R.string.menuListaAlunoDeletar);
+        MenuItem editar = menu.add(R.string.menuListaAlunoEditar);
+        MenuItem site = menu.add(R.string.menuListaAlunoSite);
+        MenuItem ligar = menu.add(R.string.menuListaAlunoLigar);
+        MenuItem sms = menu.add(R.string.menuListaAlunoSms);
+        MenuItem mapa = menu.add(R.string.menuListaAlunoMapa);
+
+        Intent irParaSite = new Intent(Intent.ACTION_VIEW);
+        if(!aluno.getSite().startsWith("http://")){
+            aluno.setSite("http://" + aluno.getSite());
+        }
+
+        irParaSite.setData(Uri.parse(aluno.getSite()));
+        site.setIntent(irParaSite);
+
         editar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
                 Intent editarAluno = new Intent(ListaAlunosActivity.this, FormularioAlunoActivity.class);
                 editarAluno.putExtra("aluno", aluno);
                 startActivity(editarAluno);
@@ -61,8 +77,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
                 AlunoDAO alunoDAO = new AlunoDAO(ListaAlunosActivity.this);
                 alunoDAO.deletar(aluno);
                 Toast.makeText(ListaAlunosActivity.this, "Aluno " + aluno.getNome() + " removido", Toast.LENGTH_SHORT).show();
