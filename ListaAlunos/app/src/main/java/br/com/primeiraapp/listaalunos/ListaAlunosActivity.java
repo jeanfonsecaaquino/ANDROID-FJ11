@@ -54,8 +54,18 @@ public class ListaAlunosActivity extends AppCompatActivity {
         MenuItem editar = menu.add(R.string.menuListaAlunoEditar);
         MenuItem site = menu.add(R.string.menuListaAlunoSite);
         MenuItem ligar = menu.add(R.string.menuListaAlunoLigar);
-        MenuItem sms = menu.add(R.string.menuListaAlunoSms);
+        MenuItem sms = menu.add (R.string.menuListaAlunoSms);
         MenuItem mapa = menu.add(R.string.menuListaAlunoMapa);
+
+        Intent irParaSMS = new Intent(Intent.ACTION_VIEW);
+        irParaSMS.setData(Uri.parse("sms:" + aluno.getTelefone()));
+
+        sms.setIntent(irParaSMS);
+
+        Intent irParaMapa = new Intent(Intent.ACTION_VIEW);
+        irParaMapa.setData(Uri.parse("geo:0,0?q=" + aluno.getEndereco()));
+        mapa.setIntent(irParaMapa);
+
 
         Intent irParaSite = new Intent(Intent.ACTION_VIEW);
         if(!aluno.getSite().startsWith("http://")){
